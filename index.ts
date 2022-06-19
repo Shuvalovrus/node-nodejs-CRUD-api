@@ -1,4 +1,5 @@
 import * as http from 'http';
+import 'dotenv/config';
 import { getUserList, getUser, createUser, updateUser, deleteUser } from './src/controllers/usersController';
 import { validateId } from './helpers';
 
