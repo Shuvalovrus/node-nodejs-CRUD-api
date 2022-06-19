@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 import { writeFile } from 'fs';
 
 
-const usersArray = JSON.parse(JSON.stringify(users)).default;
+let usersArray = JSON.parse(JSON.stringify(users)).default;
 
 interface IUser { 
     id:string,
@@ -43,5 +43,13 @@ export const update = (user:any, id: string) => {
 
         writeFile("./src/db/database.json", JSON.stringify(usersArray), 'utf-8', (err) => console.log(err));
         resolve(usersArray[userIndex]);
+    })
+}
+
+export const remove = (id: string) => {
+    return new Promise((resolve , reject) => {
+        usersArray = usersArray.filter(( user:IUser ) => user.id !== id)
+        writeFile("./src/db/database.json", JSON.stringify(usersArray), 'utf-8', (err) => console.log(err));
+        resolve(usersArray);
     })
 }

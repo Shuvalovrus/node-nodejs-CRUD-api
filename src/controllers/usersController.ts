@@ -25,8 +25,7 @@ export const getUser = async (req: any, res: any, id: string) => {
         }
     } catch (err) {
         console.log(err);
-    }
-    
+    }    
 } 
 
 
@@ -85,7 +84,20 @@ export const updateUser = async (req: any, res: any, id: string) => {
     
 } 
 
-export const deleteUser = async () => {
-    
+export const deleteUser = async (req:any, res:any, id:string ) => {
+    try {
+        const user = await User.findUser(id);
+        if (user) {
+            await User.remove(id);
+
+            res.writeHead(204, 'User delete', {'content-type' : 'text/plain'});
+            res.end('User delete');
+        } else {
+            res.writeHead(404, 'User doesn`t exist', {'content-type' : 'text/plain'});
+            res.end('User doesn`t exist');
+        }
+    } catch (err) {
+        console.log(err);
+    }     
 } 
 

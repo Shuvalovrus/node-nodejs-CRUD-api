@@ -1,21 +1,23 @@
 import * as http from 'http';
-import { getUserList, getUser, createUser, updateUser } from './src/controllers/usersController';
+import { getUserList, getUser, createUser, updateUser, deleteUser } from './src/controllers/usersController';
 import { validateId } from './helpers';
 
 const server = http.createServer((req, res) => {
-    const uuidRegExp = /[0-9a-f]{0}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
+    const uuidRegExp = /[0-9a-f]{0}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
 
     if (req.url === '/api/users' && req.method === 'GET') {
         getUserList(req, res);
 
     } else if (req.url!.match(/\api\/users\/(\w+)/) && req.method === 'GET') {
         validateId(req, res, getUser)
-    } 
-    else if (req.url === '/api/users' && req.method === 'POST')  {
+    } else if (req.url === '/api/users' && req.method === 'POST')  {
         createUser(req, res);
 
     } else if (req.url!.match(/\api\/users\/(\w+)/) && req.method === 'PUT') {
-        validateId(req, res, updateUser)
+        validateId(req, res, updateUser);
+    
+    } else if (req.url!.match(/\api\/users\/(\w+)/) && req.method === 'DELETE') {
+        validateId(req, res, deleteUser);
     
     } else {
         res.writeHead(404, {'Content-Type': 'application/json'})
