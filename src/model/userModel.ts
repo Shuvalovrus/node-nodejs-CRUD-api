@@ -33,3 +33,15 @@ export const create = (user:any) => {
         resolve(newUser);
     })
 }
+
+
+export const update = (user:any, id: string) => {
+    return new Promise((resolve, reject) => {
+        const userIndex = usersArray.findIndex((user:IUser) => user.id === id);
+
+        usersArray[userIndex] = {id, ...user}
+
+        writeFile("./src/db/database.json", JSON.stringify(usersArray), 'utf-8', (err) => console.log(err));
+        resolve(usersArray[userIndex]);
+    })
+}
