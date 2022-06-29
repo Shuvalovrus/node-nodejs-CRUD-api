@@ -1,0 +1,6 @@
+{
+    "ignore": ["node_nodules"],
+    "watch": ["./index.ts"],
+    "exec": "npm start",
+    "ext": "ts"
+}
